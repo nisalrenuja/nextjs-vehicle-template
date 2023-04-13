@@ -29,19 +29,14 @@ const Dashboard: NextPage = () => {
 
   return (
     <div>
-      <div className="text-left mb-6 text-sm bg-sky-100 p-3">
-        <div className="mb-1 text-blue-500">Signed in as: {userName}</div>
-        <Link href="/" className="hover:underline ">
-          Sign Out
-        </Link>
-      </div>
       <div className="text-center flex flex-col gap-6 items-center">
         {itemElements}
       </div>
-      <div className="mt-8 w-full flex">
-        <button className="text-center bg-blue-600 text-white rounded-md p-2 w-48">
-          Add Item
-        </button>
+      <div className="text-left mt-6 text-sm bg-sky-100 p-3">
+        <div className="mt-1 text-blue-500">Signed in as: {userName}</div>
+        <Link href="/" className="hover:underline ">
+          Sign Out
+        </Link>
       </div>
     </div>
   );
