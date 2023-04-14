@@ -3,11 +3,24 @@ import { faker } from "@faker-js/faker";
 import Item, { ItemProps } from "../components/item";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import router from "next/router";
 
 const Dashboard: NextPage = () => {
   const [itemData, setItemData] = useState<ItemProps[]>([]);
   const userName: string = "Nisal";
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  const [user, loading] = useAuthState(auth);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    router.push("/");
+  }
   // Generate some fake items.
   useEffect(() => {
     const items: ItemProps[] = [];
@@ -34,9 +47,7 @@ const Dashboard: NextPage = () => {
       </div>
       <div className="text-left mt-6 text-sm bg-sky-100 p-3">
         <div className="mt-1 text-blue-500">Signed in as: {userName}</div>
-        <Link href="/" className="hover:underline ">
-          Sign Out
-        </Link>
+        <button onClick={() => auth.signOut()}>Sign Out</button>
       </div>
     </div>
   );
